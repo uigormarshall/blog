@@ -7,7 +7,7 @@
         <title>{{ $title }} — {{ $settings:site_name }}</title>
         <meta name="description" content="{{ $intro | strip_tags | entities }}">
 
-        {{ if environment == "production"
+        {{ if environment == "local"
            && config:analytics:enabled
            && config:analytics:ga4:measurement_id }}
 
