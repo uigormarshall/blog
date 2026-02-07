@@ -6,10 +6,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $title }} — {{ $settings:site_name }}</title>
         <meta name="description" content="{{ $intro | strip_tags | entities }}">
+
+        {{ if environment == "production"
+           && config:analytics:enabled
+           && config:analytics:ga4:measurement_id }}
+
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ config:analytics:ga4:measurement_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ config:analytics:ga4:measurement_id }}', {
+                anonymize_ip: {{ config:analytics:ga4:anonymize_ip ? 'true' : 'false' }}
+            });
+        </script>
+
+        {{ /if }}
+
         <script type="application/ld+json">
             {
               "@context": "https://schema.org/",
-              "@type": "blogPost",
+              "@type": "BlogPosting",
               "name": "{{ $title }}",
               "author": {
                 "@type": "Person",
@@ -19,10 +37,12 @@
               "description": "{{ $intro | strip_tags | entities }}"
             }
         </script>
+
         {{ vite src="resources/js/site.js|resources/css/tailwind.css" }}
         {{ partial:personality }}
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     </head>
+
     <body class="bg-white text-black font-body leading-normal personality-{{ $settings:personality }}">
         {{ partial:nav }}
         <main class="py-12 lg:py-20">
