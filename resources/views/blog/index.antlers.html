@@ -1,0 +1,42 @@
+<article class="max-w-6xl mx-auto px-4">
+    <header class="mx-auto max-w-2xl text-center content py-12">
+
+
+       
+
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+            Um espaço pra falar de tecnologia, cloud, games, homelab e tudo
+            que dá vontade de discutir tomando um café.
+        </p>
+    </header>
+
+    {{ collection:blog as="posts" paginate="12" sort="date:desc" }}
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8">
+            {{ posts }}
+                <div class="{{ $first ? 'md:col-span-2 lg:col-span-2' : 'col-span-1' }}">
+                    {{ partial:blog/card :oversized="first" }}
+                </div>
+            {{ /posts }}
+        </section>
+
+        {{ paginate }}
+            {{ if $prev_page || $next_page }}
+                <section class="flex flex-col sm:flex-row gap-6 justify-center items-center text-lg pt-16 font-semibold">
+                    {{ if $prev_page }}
+                        <a href="{{ $prev_page }}" class="hover:underline flex items-center gap-2">
+                            <span class="squiggle">&larr;</span>
+                            Artigos mais novos
+                        </a>
+                    {{ /if }}
+
+                    {{ if $next_page }}
+                        <a href="{{ $next_page }}" class="hover:underline flex items-center gap-2">
+                            Artigos mais antigos
+                            <span class="squiggle">&rarr;</span>
+                        </a>
+                    {{ /if }}
+                </section>
+            {{ /if }}
+        {{ /paginate }}
+    {{ /collection:blog }}
+</article>

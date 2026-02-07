@@ -1,0 +1,12 @@
+name: Uigor
+super: true
+handle: /author/kevin-jones
+avatar: r36s.png
+id: fbd47a8b-0b08-4784-8e79-a05512e070c0
+password_hash: $2y$12$rLRBr2KcT4UXGKJkdbJT6OWvVFBMuobyyvT1pAxiodWn..POVGcdS
+preferences:
+  collections:
+    blog:
+      view: list
+    pages:
+      view: tree
